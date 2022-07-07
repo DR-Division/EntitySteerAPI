@@ -40,6 +40,14 @@ public class EntitySteerEvent extends Event {
         return contains(Direction.LEFT);
     }
 
+    public boolean isJump() {
+        return contains(Direction.JUMP);
+    }
+
+    public boolean isUnmount() {
+        return contains(Direction.UNMOUNT);
+    }
+
     public Player getWhoSteer() {
         return player;
     }
@@ -61,6 +69,8 @@ public class EntitySteerEvent extends Event {
         UP,
         DOWN,
         RIGHT,
-        LEFT
+        LEFT,
+        JUMP,
+        UNMOUNT
     }
 }

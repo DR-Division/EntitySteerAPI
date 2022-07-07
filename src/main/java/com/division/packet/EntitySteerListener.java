@@ -32,16 +32,23 @@ public class EntitySteerListener extends PacketAdapter {
             Set<EntitySteerEvent.Direction> directionSet = new HashSet<>();
             PacketContainer container = event.getPacket(); //STEER_VEHICLE
             StructureModifier<Float> floatModifier = container.getFloat(); //float field
+            StructureModifier<Boolean> booleanModifier = container.getBooleans(); //boolean field
             float wsValue = floatModifier.read(1);  //W OR S Value
             float adValue = floatModifier.read(0);  //A OR D Value
+            boolean isJump = booleanModifier.read(0);
+            boolean isUnmount = booleanModifier.read(1);
             if (wsValue > 0) //FORWARD
                 directionSet.add(EntitySteerEvent.Direction.UP);
-            else if (wsValue < 0)
+            else if (wsValue < 0) //BACKWARD
                 directionSet.add(EntitySteerEvent.Direction.DOWN);
             if (adValue > 0) //LEFT
                 directionSet.add(EntitySteerEvent.Direction.LEFT);
-            else if (adValue < 0)
+            else if (adValue < 0) // RIGHT
                 directionSet.add(EntitySteerEvent.Direction.RIGHT);
+            if (isJump) //JUMP
+                directionSet.add(EntitySteerEvent.Direction.JUMP);
+            if (isUnmount) //SHIFT?
+                directionSet.add(EntitySteerEvent.Direction.UNMOUNT);
             Bukkit.getScheduler().runTask(Plugin, () -> Bukkit.getPluginManager().callEvent(new EntitySteerEvent(p, entity, directionSet)));
         }
     }
