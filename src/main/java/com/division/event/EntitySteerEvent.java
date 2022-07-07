@@ -11,11 +11,13 @@ public class EntitySteerEvent extends Event {
 
     private static final HandlerList HANDLERS = new HandlerList();
     private final Set<Direction> directions;
-    private Player player;
-    private Entity entity;
+    private final Player player;
+    private final Entity entity;
 
     public EntitySteerEvent(Player player, Entity entity, Set<Direction> directions) {
         this.directions = directions;
+        this.player = player;
+        this.entity = entity;
     }
 
     public static HandlerList getHandlerList() {
