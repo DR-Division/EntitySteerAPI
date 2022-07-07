@@ -33,11 +33,11 @@ public class EntitySteerListener extends PacketAdapter {
             float adValue = floatModifier.read(0);  //A OR D Value
             if (wsValue > 0) //FORWARD
                 directionSet.add(EntitySteerEvent.Direction.UP);
-            else
+            else if (wsValue < 0)
                 directionSet.add(EntitySteerEvent.Direction.DOWN);
             if (adValue > 0) //LEFT
                 directionSet.add(EntitySteerEvent.Direction.LEFT);
-            else
+            else if (adValue < 0)
                 directionSet.add(EntitySteerEvent.Direction.RIGHT);
             Bukkit.getPluginManager().callEvent(new EntitySteerEvent(p, entity, directionSet));
         }
