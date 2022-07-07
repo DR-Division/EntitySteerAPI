@@ -9,15 +9,18 @@ import com.division.event.EntitySteerEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class EntitySteerListener extends PacketAdapter {
 
-    public EntitySteerListener(Plugin plugin, PacketType... types) {
+    private final JavaPlugin Plugin;
+
+    public EntitySteerListener(JavaPlugin plugin, PacketType... types) {
         super(plugin, types);
+        this.Plugin = plugin;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class EntitySteerListener extends PacketAdapter {
                 directionSet.add(EntitySteerEvent.Direction.LEFT);
             else if (adValue < 0)
                 directionSet.add(EntitySteerEvent.Direction.RIGHT);
-            Bukkit.getPluginManager().callEvent(new EntitySteerEvent(p, entity, directionSet));
+            Bukkit.getScheduler().runTask(Plugin, () -> Bukkit.getPluginManager().callEvent(new EntitySteerEvent(p, entity, directionSet)));
         }
     }
 }
