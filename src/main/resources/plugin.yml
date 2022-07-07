@@ -1,6 +1,6 @@
 name: EntitySteerAPI
 version: '${project.version}'
 main: com.division.EntitySteerAPI
-api-version: 1.19
-depend: [ Protocollib ]
+api-version: 1.12
+depend: [ ProtocolLib ]
 authors: [ Reincarnation__ ]
